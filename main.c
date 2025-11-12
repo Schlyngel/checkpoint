@@ -1,5 +1,6 @@
 #include <asm-generic/errno-base.h>
 #include <errno.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <sys/stat.h>
 #include <stdlib.h>
@@ -37,7 +38,7 @@ int createMetaFile() {
     fclose(metaFile);
     return 0;
   } else {
-    printf("meta file exists, so moving on");
+    printf("meta file exists, so moving on\n");
     fclose(metaFile);
     return 0;
   }
@@ -47,26 +48,28 @@ int createMetaFile() {
   return 1;
 }
 
-int getFileAndPut() {
+void getFileAndPut() {
   FILE* main;
-  struct stat sb;
-  char* fileContent;
+  int64_t fileSize;
 
   main = fopen("main.c", "r");
-  stat("main.c", &sb);
 
-  fileContent = malloc(sizeof(char) * sb.st_size);
+  fseek(main, 0, SEEK_END);
+  fileSize = ftell(main);
+  rewind(main);
+  char* fileContent = (char*)malloc(fileSize);
+  fread(fileContent, 1, fileSize, main);
 
-  fileContent = fgets("main.c", sb.st_size, main);
-
-
-  main = fopen(".check/main.c.check", "w");
   fclose(main);
+  main = fopen(".check/main.c.check", "w");
+
+  fprintf(main, fileContent);
+
   free(fileContent);
-  return 0;
+  fclose(main);
 }
 
-int main() {
+int main(int argc, char* argv[]) {
   int repo;
 
   repo = createRepo();
@@ -80,7 +83,7 @@ int main() {
   metaFile = createMetaFile();
   if (metaFile == 1) return 1;
 
- // getFileAndPut();
+  getFileAndPut();
 
   return 0;
 }
