@@ -43,7 +43,27 @@ int createMetaFile() {
   }
 
   printf("something somewhere went really wrong...");
+  fclose(metaFile); // this might throw a segfault but I can't prove it
   return 1;
+}
+
+int getFileAndPut() {
+  FILE* main;
+  struct stat sb;
+  char* fileContent;
+
+  main = fopen("main.c", "r");
+  stat("main.c", &sb);
+
+  fileContent = malloc(sizeof(char) * sb.st_size);
+
+  fileContent = fgets("main.c", sb.st_size, main);
+
+
+  main = fopen(".check/main.c.check", "w");
+  fclose(main);
+  free(fileContent);
+  return 0;
 }
 
 int main() {
@@ -59,6 +79,8 @@ int main() {
 
   metaFile = createMetaFile();
   if (metaFile == 1) return 1;
+
+ // getFileAndPut();
 
   return 0;
 }
