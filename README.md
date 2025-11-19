@@ -1,5 +1,5 @@
 # Checkpoint
-My own vcs
+My own version control system (vcs)
 
 ## ...but why?
 Why not? It's a great way for me to get into C, and I had some ideas for stuff I'd want in a vcs, so this is that.
