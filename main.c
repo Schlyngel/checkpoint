@@ -48,25 +48,34 @@ int createMetaFile() {
   return 1;
 }
 
-void getFileAndPut() {
+int getFileAndPut() {
   FILE* main;
   int64_t fileSize;
 
-  main = fopen("main.c", "r");
+  main = fopen(".check", "r");
+  
+  if (main == NULL) {   
+    printf("repo does not exist, run 'init' first.\n");
+    return 1;
+  } else {
+    fclose(main);
+    main = fopen("main.c", "r");
 
-  fseek(main, 0, SEEK_END);
-  fileSize = ftell(main);
-  rewind(main);
-  char* fileContent = (char*)malloc(sizeof(char)*fileSize);
-  fread(fileContent, 1, fileSize, main);
+    fseek(main, 0, SEEK_END);
+    fileSize = ftell(main);
+    rewind(main);
+    char* fileContent = (char*)malloc(sizeof(char)*fileSize);
+    fread(fileContent, 1, fileSize, main);
 
-  fclose(main);
-  main = fopen(".check/main.c.check", "w");
+    fclose(main);
+    main = fopen(".check/main.c.check", "w");
 
-  fprintf(main, fileContent);
+    fprintf(main, fileContent);
 
-  free(fileContent);
-  fclose(main);
+    free(fileContent);
+    fclose(main);
+    return 0;
+  }
 }
 
 int main(int argc, char* argv[]) {
@@ -82,7 +91,9 @@ int main(int argc, char* argv[]) {
 
       return 0;
     } else if (strcmp(argv[1], "point") == 0) {
-      getFileAndPut();
+      int gotFile;
+      gotFile = getFileAndPut();
+      if (gotFile == 1) return 1;
       return 0;
     }
   }
