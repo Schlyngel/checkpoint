@@ -98,13 +98,13 @@ int main(int argc, char* argv[]) {
 
       int metaFile;
       metaFile = createMetaFile();
-      if (metaFile == 1) return 1;
+      if (metaFile != 0) return 1;
 
       return 0;
     } else if (strcmp(argv[1], "point") == 0) {
       int gotFile;
       gotFile = getFileAndPut();
-      if (gotFile == 1) return 1;
+      if (gotFile != 0) return 1;
       
       return 0;
     } else if (strcmp(argv[1], "help") == 0) {
