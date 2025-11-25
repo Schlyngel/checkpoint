@@ -11,7 +11,7 @@ Not that much yet... it's VERY work in progress. Right now you can:
 - save the main.c file in the repo
 - prevent errors where I saw them
 
-## Should I use it for my project when it's done?
+## Should I use it for my project?
 
 
 ### Short answer: Probably not.
