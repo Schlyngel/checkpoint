@@ -96,41 +96,55 @@ void help_text()
 }
 
 int main(int argc, char* argv[]) {
-  if (argv[1] == NULL)
-  {  
-    printf("unknown command - run help to see what you can do\n");
-    return 1;
-  }
-  else
-  {
-    if (strcmp(argv[1], "init") == 0)
-    {
-      int repo = create_repo();
-      if (repo != 0) return 1;
-
-      int meta_file = create_meta_file();
-      if (meta_file != 0) return 1;
-
-      return 0;
-    } 
-    else if (strcmp(argv[1], "point") == 0)
-    {
-      int gotFile = get_file_and_put();
-      if (gotFile != 0) return 1;
-      
-      return 0;
-    } 
-    else if (strcmp(argv[1], "help") == 0)
-    {
-      help_text();
-      return 0;
-    }
-    else
-    {
+  if (argc == 2)
+  {   
+    if (argv[1] == NULL)
+    {  
       printf("unknown command - run help to see what you can do\n");
       return 1;
     }
+    else
+    {
+      if (strcmp(argv[1], "init") == 0)
+      {
+        int repo = create_repo();
+        if (repo != 0) return 1;
+
+        int meta_file = create_meta_file();
+        if (meta_file != 0) return 1;
+
+        return 0;
+      } 
+      else if (strcmp(argv[1], "point") == 0)
+      {
+        int gotFile = get_file_and_put();
+        if (gotFile != 0) return 1;
+        
+        return 0;
+      } 
+      else if (strcmp(argv[1], "help") == 0)
+      {
+        help_text();
+        return 0;
+      }
+      else 
+      {
+        printf("unknown command - run help to see what you can do\n");
+        return 1;
+      }
+    }
   }
 
+  else if (argc > 2)
+  {
+    printf("can't do multiple commands yet\n");
+    return 1;
+  } 
+  else
+  {
+    printf("unknown command - run help to see what you can do\n");
+    return 1;
+  }
   return 0;
+  
 }
