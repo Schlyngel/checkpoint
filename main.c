@@ -6,6 +6,7 @@
 #include <sys/stat.h>
 #include <stdlib.h>
 
+
 int create_repo()
 {
   char checkdir[] = ".check";
@@ -88,63 +89,85 @@ int get_file_and_put()
 
 void help_text()
 {
-  printf("Checkpoint\n\n");
+  printf("Checkpoint - definitely one of the vcs's\n\n");
   printf("Options:\n");
   printf("init - initializes the repository. run this before anything\n");
   printf("point - save current main file to the repo\n");
   printf("help - show this screen\n");
 }
 
-int main(int argc, char* argv[]) {
-  if (argc == 2)
-  {   
-    if (argv[1] == NULL)
-    {  
-      printf("unknown command - run help to see what you can do\n");
-      return 1;
-    }
-    else
-    {
-      if (strcmp(argv[1], "init") == 0)
-      {
-        int repo = create_repo();
-        if (repo != 0) return 1;
-
-        int meta_file = create_meta_file();
-        if (meta_file != 0) return 1;
-
-        return 0;
-      } 
-      else if (strcmp(argv[1], "point") == 0)
-      {
-        int gotFile = get_file_and_put();
-        if (gotFile != 0) return 1;
-        
-        return 0;
-      } 
-      else if (strcmp(argv[1], "help") == 0)
-      {
-        help_text();
-        return 0;
-      }
-      else 
-      {
-        printf("unknown command - run help to see what you can do\n");
-        return 1;
-      }
-    }
-  }
-
-  else if (argc > 2)
+int get_index(char *argument)
+{
+  if (argument != NULL)
   {
-    printf("can't do multiple commands yet\n");
-    return 1;
-  } 
+    char *argus[3];
+    argus[0] = "init";
+    argus[1] = "point";
+    argus[2] = "help";
+
+    for(int i=0; i < sizeof(argus)/sizeof(argus[0]); i++)
+    {
+      if (strcmp(argument, argus[i]) == 0)
+      {
+	return i;
+      }
+    }
+    return -1;
+  }
   else
   {
-    printf("unknown command - run help to see what you can do\n");
-    return 1;
+    return -1;
   }
-  return 0;
-  
+}
+
+
+int main(int argc, char* argv[]) 
+{
+  int argument = get_index(argv[1]);
+  if (argument != -1)
+  {
+    if (argc == 2)
+    {
+      switch(argument)
+      {
+	case 0: //init
+	  int repo = create_repo();
+	  if (repo != 0) return 1;
+
+	  int meta_file = create_meta_file();
+	  if (meta_file != 0) return 1;
+
+	  return 0;
+	  break;
+
+	case 1: //point
+	  int got_File = get_file_and_put();
+	  if (got_File != 0) return 1;
+
+	  return 0;
+	  break;
+
+	case 2: //help
+	  help_text();
+	  return 0;
+	  break;
+
+	default:
+	  printf("unknown command - run help to see what you can do\n");
+	  return 1;
+	  break;
+      }
+      return 0;
+    } 
+    else
+    {
+      printf("can't do multiple commands yet\n");
+    }
+  } 
+  else 
+  {
+    printf("unknown command - run help to see what you can do\n");
+    return 0;
+  }
+  return 1;
 }
