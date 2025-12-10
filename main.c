@@ -105,7 +105,7 @@ int get_index(char *argument)
     argus[1] = "point";
     argus[2] = "help";
 
-    for(int i=0; i < sizeof(argus)/sizeof(argus[0]); i++)
+    for(int i=0; i < (int)sizeof(argus)/(int)sizeof(argus[0]); i++)
     {
       if (strcmp(argument, argus[i]) == 0)
       {
@@ -131,18 +131,21 @@ int main(int argc, char* argv[])
       switch(argument)
       {
 	case 0: //init
-	  int repo = create_repo();
+	  int repo; 
+	  repo = create_repo();
 	  if (repo != 0) return 1;
 
-	  int meta_file = create_meta_file();
+	  int meta_file; 
+	  meta_file = create_meta_file();
 	  if (meta_file != 0) return 1;
 
 	  return 0;
 	  break;
 
 	case 1: //point
-	  int got_File = get_file_and_put();
-	  if (got_File != 0) return 1;
+	  int got_file; 
+	  got_file = get_file_and_put();
+	  if (got_file != 0) return 1;
 
 	  return 0;
 	  break;
