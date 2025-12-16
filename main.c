@@ -11,7 +11,7 @@ int create_repo()
 {
   char checkdir[] = ".check";
   
-  int repo = mkdir(checkdir, 0777);
+  int repo = mkdir(checkdir, 0755);
 
   if (repo == 0)
   {
