@@ -2,14 +2,10 @@
 My own version control system (vcs)
 
 ## ...but why?
-Why not? It's a great way for me to get into C, and I had some ideas for stuff I'd want in a vcs, so this is that.
+Why not?
 
 ## What can it do?
-Not that much yet... it's VERY work in progress. Right now you can:
-- display a help page
-- initialize a repo with a meta file (that does not to much yet)
-- save the main.c file in the repo
-- prevent errors where I saw them
+Not that much yet.
 
 ## Should you use it for your project?
 
@@ -18,12 +14,8 @@ Not that much yet... it's VERY work in progress. Right now you can:
 
 ### Long answer:
 
-#### You might want to use this if:
-- you are looking for a local vcs for small to mid-size projects where you are working alone
-- you just want to version your code and not branch/merge/whatever
-- you don't care about industry standards
+You *have* to keep in mind that this is a personal project, not tailored to any other project or use case. It's supposed to be a little tip-toe adventure into the world of C.
 
-#### You should not use this if:
-- you want to collaborate with others or access your code from anywhere (no server (yet?))
-- you want a robust, tried and true vcs solution or care about industry standards
-- you need anything beyond commits (e.g.: branches, merging, pull requests)
+I *will* finish this sooner or later so that it has very basic vcs functionality and *could* be used in projects, but it's not supposed to replace Git or others and never will. That's fine tho, I can live with that :)
+
+Also, it will probably not be maintained after it's finished. I will leave it open for contribution, but from my end I'll be leaving it alone (...unless I decide otherwise in the future).
